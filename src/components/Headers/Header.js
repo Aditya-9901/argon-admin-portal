@@ -17,9 +17,20 @@
 */
 
 // reactstrap components
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
 const Header = () => {
+  const [appointmentsData, setAppointmentsData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.jobstextile.com/appointments")
+      .then((response) => response.json())
+      .then((d) => setAppointmentsData(d.Appointments.length));
+  }, []);
+
+  console.log(appointmentsData);
+
   return (
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -36,10 +47,10 @@ const Header = () => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          Traffic
+                          <b>Total Appointments</b>
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">
-                          350,897
+                          {appointmentsData ? appointmentsData : 0}
                         </span>
                       </div>
                       <Col className="col-auto">
@@ -66,7 +77,7 @@ const Header = () => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          New users
+                          New Appointments
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">2,356</span>
                       </div>
@@ -94,7 +105,7 @@ const Header = () => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          Sales
+                          Total Users
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">924</span>
                       </div>
@@ -122,7 +133,7 @@ const Header = () => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          Performance
+                          New Users
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">49,65%</span>
                       </div>
